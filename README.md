@@ -1,2 +1,3 @@
 # stepik---auto-tests-course
-Hometask for Stepic course (https://stepik.org/course/575/syllabus)
+Homework for Stepic course (https://stepik.org/course/575/syllabus)
+Homework from 3 step
