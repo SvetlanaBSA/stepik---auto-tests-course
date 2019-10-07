@@ -1,15 +1,16 @@
 import pytest
-from selenium import webdriver
 import time
 import math
+from selenium import webdriver
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def browser():
     print("\nstart browser for test..")
     browser = webdriver.Chrome()
     yield browser
     print("\nquit browser..")
+    #time.sleep(5)
     browser.quit()
 
 
@@ -17,14 +18,19 @@ def browser():
 def test_answers_link(browser, page_link):
     link = f"https://stepik.org/lesson/{page_link}/step/1"
     browser.get(link)
+    #browser.implicitly_wait(7)
+    y = str(math.log(int(time.time())))
+    #print('answer = ', y)
+    time.sleep(5)
+    answer_field = browser.find_element_by_class_name("textarea")
+    answer_field.send_keys(y)
 
-    answer_field = browser.find_element_by_id("ember1530")
-    answer = math.log(int(time.time()))
-    answer_field.send_keys(answer)
-
-    button_submit = browser.find_element_by_class_name("submit-submission")
+    button_submit = browser.find_element_by_tag_name("button")
     button_submit.click()
+    time.sleep(5)
 
-    time.sleep(15)
+    message = browser.find_element_by_class_name("smart-hints__hint")
+    assert message.text == "Correct!", f"{message} "
+
 
 
