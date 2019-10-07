@@ -10,7 +10,6 @@ def browser():
     browser = webdriver.Chrome()
     yield browser
     print("\nquit browser..")
-    #time.sleep(5)
     browser.quit()
 
 
@@ -18,9 +17,8 @@ def browser():
 def test_answers_link(browser, page_link):
     link = f"https://stepik.org/lesson/{page_link}/step/1"
     browser.get(link)
-    #browser.implicitly_wait(7)
     y = str(math.log(int(time.time())))
-    #print('answer = ', y)
+
     time.sleep(5)
     answer_field = browser.find_element_by_class_name("textarea")
     answer_field.send_keys(y)
