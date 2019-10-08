@@ -27,10 +27,10 @@ def browser(request):
 
 
 @pytest.fixture(scope="function")
-def link(request):
-    user_language = request.config.getoption("--language")
-    if user_language == "es" or user_language == "fr":
-        link = f"http://selenium1py.pythonanywhere.com/{user_language}/catalogue/coders-at-work_207/"
+def language(request):
+    language = request.config.getoption("language")
+    if language == "es" or language == "fr":
+        link = f"http://selenium1py.pythonanywhere.com/{language}/catalogue/coders-at-work_207/"
     else:
         raise pytest.UsageError("--language should be fr or es")
     browser.get(link)
