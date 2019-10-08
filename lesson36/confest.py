@@ -9,7 +9,7 @@ def pytest_addoption(parser):
                      help="Choose browser: chrome or firefox")
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="class")
 def browser(request):
     browser_name = request.config.getoption("--browser_name")
     browser = None
@@ -28,9 +28,9 @@ def browser(request):
 
 @pytest.fixture(scope="function")
 def language(request):
-    language = request.config.getoption("language")
-    if language == "es" or language == "fr":
-        link = f"http://selenium1py.pythonanywhere.com/{language}/catalogue/coders-at-work_207/"
-    else:
-        raise pytest.UsageError("--language should be fr or es")
-    browser.get(link)
+    return request.config.getoption("--language")
+    #if language == "es" or language == "fr":
+    #    link = f"http://selenium1py.pythonanywhere.com/{language}/catalogue/coders-at-work_207/"
+    #else:
+    #    raise pytest.UsageError("--language should be fr or es")
+    #browser.get(link)
