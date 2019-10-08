@@ -31,6 +31,13 @@ def browser(request):
         browser = webdriver.Firefox(firefox_profile=fp)
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
+    if language == "fr":
+        link = "http://selenium1py.pythonanywhere.com/fr/catalogue/coders-at-work_207/"
+    elif language == "es":
+        link = "http://selenium1py.pythonanywhere.com/es/catalogue/coders-at-work_207/
+    else:
+        raise pytest.UsageError("--language should be fr or es")
+    browser.get(link)
     yield browser
     print("\nquit browser..")
     browser.quit()
