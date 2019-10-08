@@ -14,22 +14,22 @@ def pytest_addoption(parser):
 def browser(request):
     browser_name = request.config.getoption("--browser_name")
     browser = None
-    language = request.config.getoption("--language")
+    user_language = request.config.getoption("--language")
     if browser_name == "chrome":
         print("\nstart chrome browser for test..")
         options = Options()
-        options.add_experimental_option('prefs', {'intl.accept_languages': language})
+        options.add_experimental_option('prefs', {'intl.language': user_language})
         browser = webdriver.Chrome(options=options)
     elif browser_name == "firefox":
         print("\nstart firefox browser for test..")
         fp = webdriver.FirefoxProfile()
-        fp.set_preference("intl.accept_languages", language)
+        fp.set_preference("intl.accept_languages", user_language)
         browser = webdriver.Firefox(firefox_profile=fp)
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
 
-    if language == "es" or language == "fr":
-        link = f"http://selenium1py.pythonanywhere.com/{language}/catalogue/coders-at-work_207/"
+    if user_language == "es" or user_language == "fr":
+        link = f"http://selenium1py.pythonanywhere.com/{user_language}/catalogue/coders-at-work_207/"
     else:
         raise pytest.UsageError("--language should be fr or es")
     browser.get(link)
