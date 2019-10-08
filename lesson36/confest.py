@@ -1,6 +1,5 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
 
 def pytest_addoption(parser):
@@ -12,7 +11,6 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="function")
 def browser(request):
-    user_language = request.config.getoption("--language")
     browser_name = request.config.getoption("--browser_name")
     browser = None
     if browser_name == "chrome":
@@ -23,13 +21,16 @@ def browser(request):
         browser = webdriver.Firefox()
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
-
-    if user_language == "es" or user_language == "fr":
-        link = f"http://selenium1py.pythonanywhere.com/{user_language}/catalogue/coders-at-work_207/"
-    else:
-        raise pytest.UsageError("--language should be fr or es")
-    #browser.get(link)
     yield browser
     print("\nquit browser..")
     browser.quit()
 
+
+@pytest.fixture(scope="function")
+def link(request):
+    user_language = request.config.getoption("--language")
+    if user_language == "es" or user_language == "fr":
+        link = f"http://selenium1py.pythonanywhere.com/{user_language}/catalogue/coders-at-work_207/"
+    else:
+        raise pytest.UsageError("--language should be fr or es")
+    browser.get(link)
