@@ -12,9 +12,9 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="function")
 def browser(request):
-    browser_name = request.config.getoption1("browser_name")
+    browser_name = request.config.getoption1("--browser_name")
     browser = None
-    language = request.config.getoption2("language")
+    language = request.config.getoption2("--language")
     language = None
     if browser_name == "chrome":
         print("\nstart chrome browser for test..")
