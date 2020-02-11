@@ -2,7 +2,5 @@ import time
 
 
 def test_add_button_exist(browser):
-    time.sleep(5)
-    button_add_to_basket = browser.find_element_by_class_name("btn-add-to-basket")
-    assert button_add_to_basket.is_element_present, "Button is NOT exist"
-
+    time.sleep(30)
+    assert len(browser.find_elements_by_class_name("btn-add-to-basket")) > 0, "Button is NOT exist"
